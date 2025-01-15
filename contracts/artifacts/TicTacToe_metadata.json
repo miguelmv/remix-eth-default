@@ -1,0 +1,93 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "pJugador1",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "pJugador2",
+						"type": "address"
+					}
+				],
+				"name": "crearPartida",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "idPartida",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "horizontal",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "vertical",
+						"type": "uint256"
+					}
+				],
+				"name": "jugar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/2_0_TicTacToe.sol": "TicTacToe"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/2_0_TicTacToe.sol": {
+			"keccak256": "0x98df7d9f80a0feee7af87f533d77d6ed5f82804f59479c4fd28f444dcde58023",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://748b582b3edcea4ab7ef7c8b4e47da190f38013c4e068d8d7011856847b152e8",
+				"dweb:/ipfs/QmYQLqvJwh2RSvLzewUCCjxK15fosFNsKnkro9k4cpxZbG"
+			]
+		}
+	},
+	"version": 1
+}
