@@ -3,6 +3,8 @@
 //Version
 pragma solidity >=0.7.0 <0.9.0;
 
+import "contracts/2_0_TicTacToe_Achievemente.sol";
+
 //Contrato | Juego del gato
 contract TicTacToe{
     //variables
@@ -15,8 +17,12 @@ contract TicTacToe{
     }
 
     Partida[] partidas;
-
+    mapping (address => uint) partidasGanadas;
+    TicTacToeAchievement achievement;
     //constructor
+    constructor(address contratoAchievement){
+        achievement = TicTacToeAchievement(contratoAchievement);
+    }
 
     //funciones
     function crearPartida(address pJugador1, address pJugador2) public returns(uint){
@@ -43,6 +49,7 @@ contract TicTacToe{
 
         //guardar la jugada
         guardarMovimiento(idPartida, horizontal, vertical);
+        partida = partidas[idPartida];
 
         //checar si hay un ganador o si la matriz esta llena
         uint ganador = obtenerGanador(partida);
@@ -61,8 +68,19 @@ contract TicTacToe{
     }
 
     function obtenerGanador(Partida memory partida) private pure returns(uint) {
-        //validar diagonal \
+        //Checar diagonal \
         uint ganador = checarLinea(partida, 1,1,2,2,3,3);
+        //Checar diagonal /        
+        if(ganador == 0) ganador = checarLinea(partida, 3,1,2,2,1,3);
+        //Checar Cols |
+        if(ganador == 0) ganador = checarLinea(partida, 1,1,1,2,1,3);
+        if(ganador == 0) ganador = checarLinea(partida, 2,1,2,2,2,3);
+        if(ganador == 0) ganador = checarLinea(partida, 3,1,3,2,3,3);
+        //Checar rows --
+        if(ganador == 0) ganador = checarLinea(partida, 1,1,2,1,3,1);
+        if(ganador == 0) ganador = checarLinea(partida, 1,2,2,2,3,2);
+        if(ganador == 0) ganador = checarLinea(partida, 1,3,2,3,3,3);
+
         return ganador;
     }
     function checarLinea(Partida memory partida, uint x1, uint y1, uint x2, uint y2, uint x3, uint y3) private pure returns(uint){
@@ -82,6 +100,11 @@ contract TicTacToe{
             }
             else {
                 partidas[idPartida].ganador = partidas[idPartida].jugador2;
+            }
+            partidasGanadas[partidas[idPartida].ganador]++;
+            if(partidasGanadas[partidas[idPartida].ganador] == 2)
+            {
+                achievement.emitir(partidas[idPartida].ganador);
             }
         }        
     }
