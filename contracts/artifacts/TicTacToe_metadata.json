@@ -81,11 +81,11 @@
 	},
 	"sources": {
 		"contracts/2_0_TicTacToe.sol": {
-			"keccak256": "0xa445a4ec7894fd5c633df293d5dcabe93b7bcc32a1ae6285fe7f4e2b6880f126",
+			"keccak256": "0x13a32c0baf2ec8bb9742fd1f7ecce26b14ec4b6099ce91f88e432f4399532712",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://61d47b16a6789214c9a764da51f70659c279a0bf60faf9df8f13befebbed98d4",
-				"dweb:/ipfs/QmRgAErcjVJ6afuTSaNEgxpXKSyknHtxkJkLd2pAnNkqa5"
+				"bzz-raw://d7f93c900499f87cf3e2f71497326024c3162ccffa1ec8dcdb374587bb03b5bc",
+				"dweb:/ipfs/QmbV6JUEP24hByxB5gHfJPXdjjJyHa3ujMqkEWrN46bYdE"
 			]
 		}
 	},

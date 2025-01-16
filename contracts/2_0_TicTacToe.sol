@@ -38,16 +38,56 @@ contract TicTacToe{
         require(horizontal > 0 && horizontal < 4);
         require(vertical > 0 && vertical < 4);
         require(msg.sender != partida.ultimoTurno);
+        require(partida.jugadas[horizontal][vertical] == 0);
         require(!partidaTerminada(partida));
 
         //guardar la jugada
+        guardarMovimiento(idPartida, horizontal, vertical);
 
         //checar si hay un ganador o si la matriz esta llena
+        uint ganador = obtenerGanador(partida);
+        guardarGanador(ganador, idPartida);
         
         partidas[idPartida].ultimoTurno = msg.sender;
     }
 
-    //getting "Warning: Function state mutability can be restricted to pure" when not adding the "pure" word after "private" word
+    function guardarMovimiento(uint idPartida, uint horizontal, uint vertical) private {
+        if(msg.sender == partidas[idPartida].jugador1){
+            partidas[idPartida].jugadas[horizontal][vertical] = 1;
+        }
+        else {
+            partidas[idPartida].jugadas[horizontal][vertical] = 2;
+        }
+    }
+
+    function obtenerGanador(Partida memory partida) private pure returns(uint) {
+        //validar diagonal \
+        uint ganador = checarLinea(partida, 1,1,2,2,3,3);
+        return ganador;
+    }
+    function checarLinea(Partida memory partida, uint x1, uint y1, uint x2, uint y2, uint x3, uint y3) private pure returns(uint){
+        if(partida.jugadas[x1][y1] == partida.jugadas[x2][y2] && partida.jugadas[x2][y2] == partida.jugadas[x3][y3])
+        {
+            return partida.jugadas[x1][y1];
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function guardarGanador(uint ganador, uint idPartida) private {
+        if(ganador != 0){
+            if(ganador == 1){
+                partidas[idPartida].ganador = partidas[idPartida].jugador1;
+            }
+            else {
+                partidas[idPartida].ganador = partidas[idPartida].jugador2;
+            }
+        }        
+    }
+
+
+    //getting "Warning: Function state mutability can be restricted to pure" when not adding the "pure" word after "private" word.... pure hace la funcion mas liviana
     function partidaTerminada(Partida memory partida) private pure returns(bool) {
         if(partida.ganador != address(0)) return true;
 
@@ -58,6 +98,8 @@ contract TicTacToe{
         }
         return true;
     }
+
+    
 
     //modificadores
 }
