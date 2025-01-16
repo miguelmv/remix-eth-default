@@ -4,6 +4,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import "contracts/2_0_TicTacToe_Achievemente.sol";
+import "contracts/2_0_TicTacToe_Token.sol";
 
 //Contrato | Juego del gato
 contract TicTacToe{
@@ -19,9 +20,11 @@ contract TicTacToe{
     Partida[] partidas;
     mapping (address => uint) partidasGanadas;
     TicTacToeAchievement achievement;
+    TicTacToeToken moneda;
     //constructor
-    constructor(address contratoAchievement){
+    constructor(address contratoAchievement, address contratoMoneda){
         achievement = TicTacToeAchievement(contratoAchievement);
+        moneda = TicTacToeToken(contratoMoneda);
     }
 
     //funciones
@@ -106,6 +109,17 @@ contract TicTacToe{
             {
                 achievement.emitir(partidas[idPartida].ganador);
             }
+            //
+            bool casillasDisponibles;
+            for(uint x=1; x<4; x++){
+               for(uint y=1; y<4; y++){
+                    if(partidas[idPartida].jugadas[x][y] == 0) casillasDisponibles = true;
+                }
+            }
+            if(casillasDisponibles) achievement.emitir(partidas[idPartida].ganador);
+            //
+
+            moneda.emitir(partidas[idPartida].ganador, 1);
         }        
     }
 
