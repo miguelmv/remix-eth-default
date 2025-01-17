@@ -8,8 +8,17 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "contracts/2_0_TicTacToe_Achievemente.sol";
 import "contracts/2_0_TicTacToe_Token.sol";
 
-//Contrato | Juego del gato
+//Contrato | Juego del gato 
 //Slither tool for Code Review Security: https://github.com/crytic/slither
+//Correciones y buenas practicas:
+// A - Si hacemos muuucho scroll en nuestro contrato es una senial de que tenemos muchisimo codigo en el y que podria mejorarse, separandolo tal vez en diferentes archivos .sol e importarlos...
+//  como un helper.sol || por medio de herencia || analizar codigo actual y detectar funcionalidad que se pueda hacer reutilizable mediante una libreria en comun para muchos contratos || ...
+//  || la funcion jugar(...) al ser "public" en lugar de "external" hace que gaste mas GAS... esta siempre sera llamada desde el externo y nunca internamente.
+//  || lo mismo aplica para todas las funciones que no vayamos a llamar dentro del contrato.
+//  || variables uint en realidad son uint256... es necesario declarar todas las varsiables como uint?... se debe analizar ya qu esto malgasta recursos.
+//  || bucles "for" se deben usar solamente cuando vamos a recorrer el array por completo... si NO, debemos usar loop "while" con su condicionante correspondiente.
+//  || Reutilizar librerias ya probadas y testeadas... no reinventar la rueda... chequear cuanto GAS utilizan!
+//  || Todas estas buenas practicas nos ayudan a reducir el uso del GAS y por ende mejorar el performance de nuestro smart contract.
 abstract contract TicTacToe is VRFConsumerBaseV2{
     //variables
     struct Partida{
@@ -69,7 +78,7 @@ abstract contract TicTacToe is VRFConsumerBaseV2{
         }
     }  
 
-    function jugar(uint idPartida, uint horizontal, uint vertical) public {
+    function jugar(uint idPartida, uint horizontal, uint vertical) external {
         //validaciones
         Partida memory partida = partidas[idPartida];
         require(msg.sender == partida.jugador1 || msg.sender == partida.jugador2);
