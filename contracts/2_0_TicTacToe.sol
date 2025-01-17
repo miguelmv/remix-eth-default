@@ -118,8 +118,14 @@ contract TicTacToe{
             }
             if(casillasDisponibles) achievement.emitir(partidas[idPartida].ganador);
             //
-
-            moneda.emitir(partidas[idPartida].ganador, 1);
+            //
+            if(achievement.balanceOf(partidas[idPartida].ganador) > 0)
+            {
+                moneda.emitir(partidas[idPartida].ganador, 2);
+            }
+            else {
+                moneda.emitir(partidas[idPartida].ganador, 1);
+            }
         }        
     }
 
