@@ -9,6 +9,7 @@ import "contracts/2_0_TicTacToe_Achievemente.sol";
 import "contracts/2_0_TicTacToe_Token.sol";
 
 //Contrato | Juego del gato
+//Slither tool for Code Review Security: https://github.com/crytic/slither
 abstract contract TicTacToe is VRFConsumerBaseV2{
     //variables
     struct Partida{
@@ -66,7 +67,7 @@ abstract contract TicTacToe is VRFConsumerBaseV2{
         else {
             partidas[idPartida].ultimoTurno = partidas[idPartida].jugador2;
         }
-    } 
+    }  
 
     function jugar(uint idPartida, uint horizontal, uint vertical) public {
         //validaciones
