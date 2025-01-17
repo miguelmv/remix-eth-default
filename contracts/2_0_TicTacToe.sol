@@ -66,7 +66,7 @@ abstract contract TicTacToe is VRFConsumerBaseV2{
         else {
             partidas[idPartida].ultimoTurno = partidas[idPartida].jugador2;
         }
-    }
+    } 
 
     function jugar(uint idPartida, uint horizontal, uint vertical) public {
         //validaciones
