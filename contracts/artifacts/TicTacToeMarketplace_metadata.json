@@ -323,11 +323,11 @@
 			]
 		},
 		"contracts/2_0_TicTacToe_Marketplace.sol": {
-			"keccak256": "0x743515ae0b571ab2b0f6222e9c8f6fc17cd68046556d69db460f35c9b808bca6",
+			"keccak256": "0xaa6d02339a25306cace8d25b0eca0d106da2e31642314d18bb4ace5f8ea28d4f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://8b80cc4c1952fb9c268387d391b213b9db0df9b762b01e7d2d7003103a1c9e61",
-				"dweb:/ipfs/QmVifeDZb2ExTxMU3PvfCcTuzU8UowEjvJLmnb1i8nE4b1"
+				"bzz-raw://5df5c2fa16c87795cf7cb6351223fdfb498eee2fbef2197a9b61001ed3bdfdd9",
+				"dweb:/ipfs/QmfLiPgfMjGJJB8NKf8XXPaYfqMCKHwHEtU79KmbNC5TfV"
 			]
 		}
 	},

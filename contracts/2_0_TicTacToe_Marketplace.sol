@@ -43,7 +43,7 @@ contract TicTacToeMarketplace is Ownable(msg.sender)  {
         valores[tokenId] = cantidad;
 
     }
-    /*
+    /* 
     function comprar(uint tokenId) public {
         require(valores[tokenId] > 0);
         require(moneda.allowance(msg.sender, address(this)) >= valores[tokenId]);

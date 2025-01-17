@@ -3,11 +3,13 @@
 //Version
 pragma solidity >=0.7.0 <0.9.0;
 
+import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "contracts/2_0_TicTacToe_Achievemente.sol";
 import "contracts/2_0_TicTacToe_Token.sol";
 
 //Contrato | Juego del gato
-contract TicTacToe{
+abstract contract TicTacToe is VRFConsumerBaseV2{
     //variables
     struct Partida{
         address jugador1;
@@ -15,16 +17,22 @@ contract TicTacToe{
         address ganador;
         uint[4][4] jugadas;
         address ultimoTurno;
+        uint requestId;
     }
 
+    mapping (uint => uint) requestPartidas;
     Partida[] partidas;
     mapping (address => uint) partidasGanadas;
     TicTacToeAchievement achievement;
     TicTacToeToken moneda;
+    VRFCoordinatorV2Interface coordinador;
+    uint64 idSubscripcion;
     //constructor
-    constructor(address contratoAchievement, address contratoMoneda){
+    constructor(address contratoAchievement, address contratoMoneda, address pCoordinador, uint64 idSub) VRFConsumerBaseV2(pCoordinador){
         achievement = TicTacToeAchievement(contratoAchievement);
         moneda = TicTacToeToken(contratoMoneda);
+        coordinador = VRFCoordinatorV2Interface(pCoordinador);
+        idSubscripcion = idSub;
     }
 
     //funciones
@@ -37,7 +45,27 @@ contract TicTacToe{
         partida.jugador1 = pJugador1;
         partida.jugador2 = pJugador2;
         partidas.push(partida);
+
+        uint reqId = coordinador.requestRandomWords(
+            0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c, 
+            idSubscripcion, 
+            3, 
+            100000, 
+            1);
+        //requestPartidas[reqId] = partida; //?????
+        requestPartidas[reqId] = idPartida;
         return idPartida;
+    }
+
+    function fulfillRandomWords(uint256 _requestId, uint256[] memory _randomWords) internal override {
+        uint idPartida = requestPartidas[_requestId];
+        uint random = _randomWords[0];
+        if(random % 2 == 0) {
+            partidas[idPartida].ultimoTurno = partidas[idPartida].jugador1;
+        }
+        else {
+            partidas[idPartida].ultimoTurno = partidas[idPartida].jugador2;
+        }
     }
 
     function jugar(uint idPartida, uint horizontal, uint vertical) public {
@@ -49,6 +77,7 @@ contract TicTacToe{
         require(msg.sender != partida.ultimoTurno);
         require(partida.jugadas[horizontal][vertical] == 0);
         require(!partidaTerminada(partida));
+        require(partida.ultimoTurno != address(0));
 
         //guardar la jugada
         guardarMovimiento(idPartida, horizontal, vertical);
