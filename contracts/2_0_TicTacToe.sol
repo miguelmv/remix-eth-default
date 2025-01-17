@@ -19,6 +19,19 @@ import "contracts/2_0_TicTacToe_Token.sol";
 //  || bucles "for" se deben usar solamente cuando vamos a recorrer el array por completo... si NO, debemos usar loop "while" con su condicionante correspondiente.
 //  || Reutilizar librerias ya probadas y testeadas... no reinventar la rueda... chequear cuanto GAS utilizan!
 //  || Todas estas buenas practicas nos ayudan a reducir el uso del GAS y por ende mejorar el performance de nuestro smart contract.
+// FIN DE CURSO DE Programacion de Smart Contracts con Solidity.
+//  Para hacer un proyecto, tomate el tiempo para: 
+//      PENSAR, 
+//      DISENIAR(flujo, jerarquia... segmentar codigo en multiples archisovs .sol), 
+//      DOCUMENTAR, 
+//      CONSTRUIR,
+//      PARTICIPAR EN FOROS,
+//      ANALIZAR SMART CONTRACTS OPEN SOURCE Y VER BUENAS PRACTICAS,
+//      DARLE MUUUCHA IMPORTANCIA A LA SEGURIDAD (MEDIANTE HERRAMIENTAS COMO SLITHER, ETC),
+//      ESTIMAR APROPIADAMETE COSTOS DE GAS, SI NO NUESTRO PROYECTO PUEDE LLEGAR A SER INUTILIZABLE DEBIDO AL ALTO COSTO,
+//      QUE PASA SI NUESTRO PROYECTO CULMINA?...
+//      Continuemos la conversacion con @sebaleoperez...
+//      ... vamos por el examen!
 abstract contract TicTacToe is VRFConsumerBaseV2{
     //variables
     struct Partida{
